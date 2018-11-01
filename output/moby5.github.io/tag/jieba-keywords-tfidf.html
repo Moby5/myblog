@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>lucky abby - jieba keywords tfidf</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+<a href="https://github.com/Moby5">
+<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
+</a>
+        <header id="banner" class="body">
+                <h1><a href="/">lucky abby </a></h1>
+                <nav><ul>
+                    <li><a href="/category/daily.html">daily</a></li>
+                    <li><a href="/category/posts.html">posts</a></li>
+                    <li><a href="/category/python.html">python</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/gen-keywords.html">tfidf关键词抽取</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-05-16T20:00:00+08:00">
+                Published: 二 16 五月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/jkmiao.html">jkmiao</a>
+        </address>
+<p>In <a href="/category/python.html">python</a>.</p>
+<p>tags: <a href="/tag/jieba-keywords-tfidf.html">jieba keywords tfidf</a> </p>
+</footer><!-- /.post-info --><p>针对一篇文档进行关键词抽取的场景经常会碰到，在此备记一个简单利用jieba库进行关键词抽取的方法，抛砖引玉。</p>
+<h2>安装</h2>
+<div class="highlight"><pre><span></span>    pip install jieba --user_keywords.txt
+</pre></div>
+
+
+<h2>使用</h2>
+<div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">jieba</span>
+    <span class="kn">import</span> <span class="nn">re</span>
+    <span class="kn">from</span> <span class="nn">jieba</span> <span class="kn">import</span> <span class="n">analyse</span>
+
+    <span class="c1"># 载入自定义词典</span>
+    <span class="n">jieba</span><span class="o">.</span><span class="n">load_userdict</span><span class="p">(</span><span class="s2">&quot;data/user_keywords.txt&quot;</span><span class="p">)</span>
+    <span class="c1"># 载入停用词</span>
+    <span class="n">analyse</span><span class="o">.</span><span class="n">set_stop_words</span><span class="p">(</span><span class="s2">&quot;data/stop_words.txt&quot;</span><span class="p">)</span>
+    <span class="c1"># tfidf获取关键词</span>
+    <span class="k">def</span> <span class="nf">get_keywords</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">topK</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type text: str</span>
+<span class="sd">        :type topK int: 默认抽取个数</span>
+<span class="sd">        :rtype : str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">key_words</span> <span class="o">=</span> <span class="n">analyse</span><span class="o">.</span><span class="n">extract_tags</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">topK</span><span class="o">=</span><span class="n">topK</span><span class="p">)</span>
+        <span class="c1"># 过滤掉纯数字</span>
+        <span class="n">key_words</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">key_words</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">key_words</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This is my 2nd post, and I'll try to write one every 2 days. The more the better.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://jkmiao.sinaapp.com/">jkmiao homepage</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
